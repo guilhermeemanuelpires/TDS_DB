@@ -1,2 +1,3 @@
  --  comandos
- 
+
+ CREATE DATABASE ESCOLA;
