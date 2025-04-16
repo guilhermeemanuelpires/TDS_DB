@@ -9,3 +9,5 @@
  );
 
 INSERT INTO ALUNOS(id, nome, email) VALUES(1, "Guilherme Pires", "guilherme.emanuel@sistemafiep.org.br");
+
+SELECT * FROM alunos;
