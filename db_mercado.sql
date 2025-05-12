@@ -47,13 +47,18 @@
     CREATE TABLE pedidos(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         id_cliente INT NOT NULL,
+        FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+    );
+
+    CREATE TABLE pedido_items(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        id_pedido INT NOT NULL,
         id_produto INT NOT NULL,
         quantidade INT NOT NULL,
         total DECIMAL(9, 2) NOT NULL,
-        FOREIGN KEY (id_cliente) REFERENCES clientes(id),
+        FOREIGN KEY (id_pedido) REFERENCES pedidos(id),
         FOREIGN KEY (id_produto) REFERENCES produtos(id)
     );
-
 
 -- Populando a tabela produtos
 INSERT INTO produtos (nome, quantidade, preco, ativo) VALUES
