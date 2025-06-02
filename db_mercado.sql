@@ -27,7 +27,7 @@ CREATE TABLE clientes(
 CREATE TABLE pedidos(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERE NCES clientes(id)
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
 CREATE TABLE pedido_items(
@@ -40,7 +40,7 @@ CREATE TABLE pedido_items(
     FOREIGN KEY (id_produto) REFERENCES produtos(id)
 );
 
--- Populando a tabela produtos
+/* Populando a tabela produtos */
 INSERT INTO
     produtos (nome, quantidade, preco, ativo)
 VALUES
@@ -50,7 +50,7 @@ VALUES
     ('Notebook i5', 20, 3500.00, TRUE),
     ('Impressora Multifuncional', 10, 1200.00, FALSE);
 
--- Populando a tabela clientes
+/* Populando a tabela clientes*/
 INSERT INTO
     clientes (nome, cpf, telefone, ativo)
 VALUES
@@ -80,7 +80,7 @@ VALUES
         TRUE
     );
 
--- Populando a tabela pedidos
+/* Populando a tabela pedidos */
 INSERT INTO
     pedidos(id_cliente)
 VALUES
@@ -101,3 +101,37 @@ VALUES
 (1, 2, 1,  149.90),
 (1,3, 1, 899.00);
 
+
+-- // JOINS -- // 
+
+SELECT 
+    p.*,
+    c.nome,
+    c.telefone
+FROM pedidos as p
+    JOIN clientes as c ON c.id = p.id_cliente;
+    
+
+SELECT 
+    p.*,
+    c.nome,
+    c.telefone,
+    pi.*,
+    prod.*
+FROM pedidos as p
+    JOIN clientes as c ON c.id = p.id_cliente
+    JOIN pedido_items as pi ON pi.id_pedido = p.id
+    JOIN produtos as prod ON prod.id = pi.id_produto;
+	
+
+
+
+SELECT 
+    * 
+FROM 
+    PEDIDOS
+    JOIN CLIENTES ON CLIENTES.ID = PEDIDOS.ID_CLIENTE 
+        AND CLIENTES.ATIVO = true
+        AND CLIENTES.TELEFONE IS NOT NULL
+    JOIN PEDIDO_ITEM ON 
+    JOIN PRODUTO ON ;
