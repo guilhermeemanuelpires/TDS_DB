@@ -41,17 +41,17 @@ CREATE TABLE estaciona(
 );
 
 INSERT INTO cliente (cpf, nome, dtNasc) VALUES
-(11111111111, 'João Silva', '1985-04-12'),
-(22222222222, 'Maria Souza', '1990-09-23'),
-(33333333333, 'Carlos Lima', '1978-01-30'),
-(44444444444, 'Ana Pereira', '1995-06-15'),
-(55555555555, 'Rafael Costa', '1988-03-22'),
-(66666666666, 'Juliana Alves', '1992-12-11'),
-(77777777777, 'Pedro Rocha', '1983-07-19'),
-(88888888888, 'Fernanda Dias', '1996-10-05'),
-(99999999999, 'Lucas Martins', '2000-01-01'),
-(10101010101, 'Camila Melo', '1987-05-30'),
-(12121212121, 'Rodrigo Antunes', '1993-09-09');
+(1111111111, 'João Silva', '1985-04-12'),
+(2222222222, 'Maria Souza', '1990-09-23'),
+(3333333333, 'Carlos Lima', '1978-01-30'),
+(4444444444, 'Ana Pereira', '1995-06-15'),
+(5555555555, 'Rafael Costa', '1988-03-22'),
+(6666666666, 'Juliana Alves', '1992-12-11'),
+(7777777777, 'Pedro Rocha', '1983-07-19'),
+(8888888888, 'Fernanda Dias', '1996-10-05'),
+(9999999999, 'Lucas Martins', '2000-01-01'),
+(1010101010, 'Camila Melo', '1987-05-30'),
+(1212121212, 'Rodrigo Antunes', '1993-09-09');
 
 
 INSERT INTO modelo (codMod, desc_2) VALUES
@@ -126,7 +126,20 @@ WHERE
     estaciona.cod = 1;
 
 /* RESPOSTA E*/
-SELECT * FROM
+SELECT 
+    veiculo.placa,
+    modelo.desc_2 
+FROM 
+    veiculo
+JOIN modelo ON veiculo.Modelo_CodMod = modelo.codMod;
 
 
+/* RESPOSTA H*/
+SELECT  
+    cliente.*
+FROM veiculo
+JOIN cliente ON veiculo.cliente_cpf = cliente.cpf
+WHERE
+    veiculo.modelo_CodMod = 1
+    
 
