@@ -16,7 +16,7 @@ CREATE TABLE modelo(
 CREATE TABLE veiculo(
     placa VARCHAR(8) NOT NULL PRIMARY KEY,
     Modelo_codMod INT,
-    Cliente_cpf INT,
+    Cliente_cpf VARCHAR(11),
     cor VARCHAR(20),
     FOREIGN KEY (Modelo_codMod) REFERENCES modelo(codMod),
     FOREIGN KEY (Cliente_cpf) REFERENCES cliente(cpf)
