@@ -100,46 +100,102 @@ INSERT INTO estaciona (cod, Patio_num, Veiculo_placa, dtEntrada, dtSaida, hsEntr
 (11, 1, 'KKK1234', '2025-06-11', '2025-06-11', '08:30:00', '11:30:00');
 
 /* RESPOTAS QUESTÃO A*/
+
 SELECT 
-    veiculo.placa,
-    cliente.nome
+    v.placa as placa_do_veiculo,
+    c.nome as nome_do_cliente
 FROM 
-    veiculo
-JOIN cliente ON veiculo.cliente_cpf = cliente.cpf;
+    veiculo as v
+JOIN cliente as c ON c.cpf = v.cliente_cpf;
 
 /* RESPOSTA QUESTÃO B*/
 SELECT 
-    cliente.cpf,
-    cliente.nome,
-    veiculo.placa
+    c.cpf,
+    c.nome,
+    v.placa
 FROM 
-    cliente
-JOIN veiculo ON cliente.cpf = veiculo.cliente_cpf
+    cliente as c
+JOIN veiculo as v ON c.cpf = v.cliente_cpf
 WHERE
-    veiculo.placa = "AAA1234"
+    v.placa = "DDD4567";
+
+/*RESPOSTA LETRA C */
+SELECT 
+    v.placa,
+    v.cor
+FROM 
+    veiculo as v
+JOIN estaciona as e ON e.veiculo_placa = v.placa
+WHERE
+    e.cod = 1;
 
 /*RESPOSTA LETRA D */
 SELECT 
-    estaciona.veiculo_placa
-FROM estaciona
-WHERE
-    estaciona.cod = 1;
-
-/* RESPOSTA E*/
-SELECT 
-    veiculo.placa,
-    modelo.desc_2 
+    v.placa,
 FROM 
-    veiculo
-JOIN modelo ON veiculo.Modelo_CodMod = modelo.codMod;
-
-
-/* RESPOSTA H*/
-SELECT  
-    cliente.*
-FROM veiculo
-JOIN cliente ON veiculo.cliente_cpf = cliente.cpf
+    veiculo as v
+JOIN estaciona as e ON e.veiculo_placa = v.placa
 WHERE
-    veiculo.modelo_CodMod = 1
-    
+    e.cod = 1;
 
+/*RESPOSTA LETRA E */
+SELECT 
+    v.placa,
+    m.desc_2 as descrição
+FROM 
+    veiculo as v
+JOIN modelo as m ON v.modelo_codmod = m.codmod; 
+
+/* RESPOSTA F*/
+SELECT 
+    p.ender as endereco,
+    e.dtEntrada as data_de_entrada,
+    e.dtSaida as data_de_saida
+FROM 
+    estaciona as e
+JOIN patio as p ON e.patio_num = p.num
+WHERE
+    e.veiculo_placa = "III9012";
+
+/* RESPOSTA G*/
+/** AGRUPAMENTO DE DADOS */
+
+SELECT 
+    COUNT(v.cor),
+    v.cor
+FROM 
+    veiculo as v
+GROUP BY 
+    v.cor,
+    v.modelo_codmod; 
+
+
+SELECT 
+    COUNT(e.veiculo_placa),
+    COUNT(v.cor) as qtd_cor,
+    v.cor,
+    e.veiculo_placa
+FROM 
+    estaciona as e
+JOIN veiculo as v ON v.placa = e.veiculo_placa
+WHERE v.cor = "branco"
+GROUP BY 
+    e.veiculo_placa, 
+    v.cor;
+
+SELECT * FROM veiculo;
+
+INSERT INTO estaciona (cod, patio_num, veiculo_placa, dtEntrada, dtSaida, hsSaida, hsEntrada)
+VALUES(12, 3, "HHH8901","2025-06-08", "2025-06-08", "11:00:00", "16:00:00");
+INSERT INTO estaciona (cod, patio_num, veiculo_placa, dtEntrada, dtSaida, hsSaida, hsEntrada)
+VALUES(13, 3, "CCC3456","2025-06-08", "2025-06-08", "11:00:00", "16:00:00");
+
+
+ALTER table estaciona ADD COLUMN vlrHora DECIMAL(9,2);
+
+UPDATE estaciona SET vlrHora = 5.00;
+
+/*Calculo da hora consumida no estacionamento * por valor hora esatcionado */ 
+SELECT 
+    SUM(FORMAT((TIMESTAMPDIFF(MINUTE, hsEntrada, hsSaida) /60 ) * vlrHora, 2)) as soma_total
+FROM estaciona;
