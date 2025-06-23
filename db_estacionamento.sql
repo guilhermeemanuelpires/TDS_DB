@@ -199,3 +199,10 @@ UPDATE estaciona SET vlrHora = 5.00;
 SELECT 
     SUM(FORMAT((TIMESTAMPDIFF(MINUTE, hsEntrada, hsSaida) /60 ) * vlrHora, 2)) as soma_total
 FROM estaciona;
+
+/* RESPOSTA H*/
+SELECT 
+    C.* 
+FROM veiculo as v
+JOIN cliente as c ON v.cliente_cpf = c.cpf
+WHERE v.modelo_codMod = 1;
